@@ -1,3 +1,84 @@
+/* Import Lato font */
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400');
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    background: #333536;
+    font-family: Lato, sans-serif;
+}
+
+.fretboard {
+    display: flex;
+    flex-direction: column; /* Because we want the strings to flow from top to bottom */
     background: #be975b;
+    width: 100%;
+    height: 300px; 
+    margin-top: 50px; /* Just to push down a bit so we can see where it begins */
+}
+
+.string {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+}
+/* Using pseudo before because we need to display a string and still have the whole string and fret clickable */
+.string:before {
+    content: ''; /* We need a content property in a before and after pesudo element */
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(#eee, #999);
+    box-shadow: 76px 3px 10px #806233; /* Off set 76 pixels because we dont want the shadow on fret 0 */
+    z-index: 1;
+    position: absolute; /* So we can push the string down a bit */
+    top: 22px;
+}
+.note-fret { 
+display: flex;
+  flex: 1;
+  border-right: 10px solid;
+  border-image: linear-gradient(to left, #777, #bbb, #777) 1 100%;
+  /* box-shadow: 2px 0 2px -2px #92703a; */
+  justify-content: center;  
+  /* Because we want the note dots inside to be centered */
+  align-items: center;  /* Because we want the note dots inside to be centered */
+  /* min-width: 1.4em;  */
+}
+/* Fret number 0 */
+.note-fret:first-child {
+    background: #161717;
+    border-right: 12px solid; /* A little wider border cus its da nutz */
+    flex-grow: 0;
+    flex-shrink: 0; /* We want this to stay the same width when resizing */
+    min-width: 60px; /* We have to set a minimum width on this. Otherwise it will be too small */
+    border-image: linear-gradient(to left, #bbb, #fff, #bbb) 1 100%; /* What are the last two values?? */   
+}
+/* Note dots to display note names */
+.note-fret:before {
+    content: 'C'; /* Replace with data attribute later */
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    line-height: 33px;
+    text-align: center;
+    background: teal;
+    border: 3px solid #007575;
+    color: #eee;
+    z-index: 2;
+}
+
+/* Single fret marks on 3, 5, 7 and 9th fret  */
+.single-fretmark:after {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    top: 150px; /*  50 percent of the height of the fretboard */
+    background: #806233;
+    transform: translate(0, -50%); /* Subtract half of the width of the fretmark to center */
 }
