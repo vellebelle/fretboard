@@ -1,4 +1,14 @@
-
+:root {
+    /* Set up variables one by one and change accordingly in css below  */
+    --fretboard-height: 450; /* So we can calculate string spacing and fret marks */
+    --number-of-strings: 6;
+    --string-height: 10;
+    --half-string-height: calc(var(--string-height) / 2);
+    /* Explain this calculation */
+    --string-top-position: calc(((var(--fretboard-height) / var(--number-of-strings) / 2) - var(--half-string-height)) * 1px);
+    --double-fret-mark-pos-1: calc(var(--fretboard-height) / 5);
+    --double-fret-mark-pos-2: calc(var(--double-fret-mark-pos-1) + var(--fretboard-height) / 2);
+}
 
 /* Import Lato font */
 @import url('https://fonts.googleapis.com/css?family=Lato:100,300,400');
@@ -18,7 +28,7 @@ body {
     flex-direction: column; /* Because we want the strings to flow from top to bottom */
     background: #be975b;
     width: 100%;
-    height: 300px; 
+    height: calc(var(--fretboard-height) * 1px); 
     margin-top: 50px; /* Just to push down a bit so we can see where it begins */
 }
 
@@ -32,12 +42,15 @@ body {
 .string:before {
     content: ''; /* We need a content property in a before and after pesudo element */
     width: 100%;
-    height: 10px;
+    height: calc(var(--string-height) * 1px);
     background: linear-gradient(#eee, #999);
     box-shadow: 76px 3px 10px #806233; /* Off set 76 pixels because we dont want the shadow on fret 0 */
     z-index: 1;
     position: absolute; /* So we can push the string down a bit */
-    top: 22px; 
+    /* Extract this to css vars to make it simpler */
+    /* top: calc(calc(calc(var(--fretboard-height) / 6 / 2) - 5) * 1px);  */
+    
+    top: var(--string-top-position);
 }
 .note-fret { 
 display: flex;
@@ -82,7 +95,7 @@ display: flex;
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    top: 150px; /*  50 percent of the height of the fretboard */
+    top: calc(var(--fretboard-height) / 2 * 1px); /*  50 percent of the height of the fretboard */ /* Multiply with 1 px to get unit */
     background: #806233;
     transform: translate(0, -50%); /* Subtract half of the width of the fretmark to center */
 }
@@ -93,18 +106,21 @@ display: flex;
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    top: 58px;
-    background: blue;
+    /* Extract to make it simpler */
+    /* top: calc(calc(var(--fretboard-height) / 5) * 1px);  */
+    top: calc(var(--double-fret-mark-pos-1) * 1px);
+    background: #80623d;
     transform: translate(-140%, 50%);
-    }
+}
 .double-fretmark:after {
     content: "";
     position: absolute;
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    top: 208px;
-    background: red;
+    /* top: calc(calc(var(--fretboard-height) / 5 + calc(var(--fretboard-height) / 2)) * 1px); Multiply with 1 px to get unit */
+    top: calc(var(--double-fret-mark-pos-2) * 1px);
+    background: #80623e;
     transform: translate(-140%, 50%);
 }
 
