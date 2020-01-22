@@ -1,3 +1,5 @@
+
+
 /* Import Lato font */
 @import url('https://fonts.googleapis.com/css?family=Lato:100,300,400');
 /* Reset */
@@ -35,7 +37,7 @@ body {
     box-shadow: 76px 3px 10px #806233; /* Off set 76 pixels because we dont want the shadow on fret 0 */
     z-index: 1;
     position: absolute; /* So we can push the string down a bit */
-    top: 22px;
+    top: 22px; 
 }
 .note-fret { 
 display: flex;
@@ -47,6 +49,7 @@ display: flex;
   /* Because we want the note dots inside to be centered */
   align-items: center;  /* Because we want the note dots inside to be centered */
   /* min-width: 1.4em;  */
+  position: relative;
 }
 /* Fret number 0 */
 .note-fret:first-child {
@@ -69,6 +72,7 @@ display: flex;
     border: 3px solid #007575;
     color: #eee;
     z-index: 2;
+    opacity: 0;
 }
 
 /* Single fret marks on 3, 5, 7 and 9th fret  */
@@ -82,3 +86,6 @@ display: flex;
     background: #806233;
     transform: translate(0, -50%); /* Subtract half of the width of the fretmark to center */
 }
+
+
+
