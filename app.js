@@ -20,7 +20,7 @@ const numberOfStrings = 6;
 
 // Where the single fretmarks should be positioned on the fretboard
 const singleFretMarkPositions = [3, 5, 7, 9];
-
+const doubleFretMarkPositions = [12, 24];
 const app = {
     init() {
         this.setupFretboard();
@@ -34,10 +34,11 @@ const app = {
             fretboard.appendChild(string);
 
             // Loop inside loop to make frets inside each string
-            for (let fret = 0; fret <= numberOfFrets; fret++) {
-                // >= operator because we have 1+ fret because of 0ith fret
+            for (let fret = 0; fret <= numberOfFrets; fret++) { // >= operator because we have 1+ fret because of 0ith fret
+                
                 let noteFret = tools.createElement('div');
                 noteFret.classList.add('note-fret');
+
                 // Add single fretmarks to specific frets, but only on the first string (i === 0)
                 // AND Check to see if we are in a fret, where a single fretmark should be added
                 if (i === 0 && singleFretMarkPositions.indexOf(fret) !== -1) {
@@ -45,6 +46,14 @@ const app = {
                 }
                 
                 string.appendChild(noteFret);
+                  // Add double fretmark
+                  if (i === 0 && doubleFretMarkPositions.indexOf(fret) !== -1) {
+                      console.log('first string', 1);
+                      console.log('fret is double', fret);
+                    let doubleFretMark = tools.createElement('div');
+                    doubleFretMark.classList.add('double-fretmark');
+                   // noteFret.appendChild(doubleFretmark);
+                }
             }
         }
     }
