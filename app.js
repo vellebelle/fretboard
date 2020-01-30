@@ -21,8 +21,6 @@ const app = {
     setupFretboard() {
         // add strings to fretboard
         for (let i = 0; i < numberOfStrings; i++) {
-            // Test to get the string names
-            console.log(`String: ${tuning[i]}`);
 
             let string = tools.createElement('div');
             string.classList.add('string');
@@ -31,12 +29,9 @@ const app = {
             // Loop inside loop to make frets inside each string
             for (let fret = 0; fret <= numberOfFrets; fret++) {
                 // >= operator because we have 1+ fret because of 0ith fret
-                console.log(`Fret number ${fret}`);
-
                 let noteFret = tools.createElement('div');
                 noteFret.classList.add('note-fret');
                 string.appendChild(noteFret);
-
             }
         }
     }
