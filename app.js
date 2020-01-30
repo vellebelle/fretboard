@@ -2,7 +2,7 @@ const fretboard = document.querySelector('.fretboard');
 // testing
 // WAIT WITH THESE VARIABLES UNTIL BEING USED. OTHERWISE CONFUSING..
 // Setup consts and variables
-const numberOfFrets = 12;
+const numberOfFrets = 24;
 const numberOfStrings = 6;
 
 
@@ -19,7 +19,7 @@ const numberOfStrings = 6;
 // let accidentals = 'flats';
 
 // Where the single fretmarks should be positioned on the fretboard
-const singleFretMarkPositions = [3, 5, 7, 9];
+const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
 const doubleFretMarkPositions = [12, 24];
 const app = {
     init() {
@@ -47,12 +47,11 @@ const app = {
                 
                 string.appendChild(noteFret);
                   // Add double fretmark
+                  // If first string and fret is in array of double fretmarks add div.double-fretmark
                   if (i === 0 && doubleFretMarkPositions.indexOf(fret) !== -1) {
-                      console.log('first string', 1);
-                      console.log('fret is double', fret);
                     let doubleFretMark = tools.createElement('div');
                     doubleFretMark.classList.add('double-fretmark');
-                   // noteFret.appendChild(doubleFretmark);
+                    noteFret.appendChild(doubleFretMark);
                 }
             }
         }
