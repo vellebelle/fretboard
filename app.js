@@ -5,6 +5,7 @@ const numberOfFrets = 12;
 const numberOfStrings = 6;
 const tuning = ['E', 'B', 'G', 'D', 'A', 'E']; // reverse order from top of screen
 
+//WAIT WITH THIS.. CONFUSING IF TOO EARLY
 // sharps the noteletter without the accidental. ie: C, C#, D, D#, E, F, F#, G, G#, A, A#, B
 const notesSharp = ["C", "C", "D", "D", "E", "F", "F", "G", "G", "A", "A", "B"];
 // Same concept for the flats
@@ -22,10 +23,20 @@ const app = {
         for (let i = 0; i < numberOfStrings; i++) {
             // Test to get the string names
             console.log(`String: ${tuning[i]}`);
+
+            let string = tools.createElement('div');
+            string.classList.add('string');
+            fretboard.appendChild(string);
+
             // Loop inside loop to make frets inside each string
             for (let fret = 0; fret <= numberOfFrets; fret++) {
                 // >= operator because we have 1+ fret because of 0ith fret
                 console.log(`Fret number ${fret}`);
+
+                let noteFret = tools.createElement('div');
+                noteFret.classList.add('note-fret');
+                string.appendChild(noteFret);
+
             }
         }
     }
@@ -33,7 +44,10 @@ const app = {
 const tools = {
     createElement(element, content) {
         element = document.createElement(element);
-        element.innerHTML = content;
+        // Only add content if content is passed to args
+        if (arguments.length > 1) {
+            element.innerHTML = content;
+        }
         return element;
     }
 }
