@@ -50,8 +50,6 @@ body {
     box-shadow: 76px 3px 10px #806233; /* Off set 76 pixels because we dont want the shadow on fret 0 */
     z-index: 1;
     position: absolute; /* So we can push the string down a bit */
-
-    
     top: var(--string-top-position);
 }
 .note-fret { 
@@ -75,20 +73,6 @@ display: flex;
     min-width: 60px; /* We have to set a minimum width on this. Otherwise it will be too small */
     border-image: linear-gradient(to left, #bbb, #fff, #bbb) 1 100%; /* What are the last two values?? */   
 }
-/* Note dots to display note names */
-.note-fret:before {
-    content: 'C'; /* Replace with data attribute later */
-    width: 33px;
-    height: 33px;
-    border-radius: 50%;
-    line-height: 33px;
-    text-align: center;
-    background: teal;
-    border: 3px solid #007575;
-    color: #eee;
-    z-index: 2;
-    opacity: 0;
-}
 
 /* Extract class to share settings for fretmark */
 .fretmark:before, .fretmark:after {
@@ -99,6 +83,22 @@ display: flex;
   border-radius: 50%;
   background: var(--fret-mark-color);
 }
+
+/* Note dots to display note names ******* MOVED THIS UNDER fretmark>before and after styles, so the note dots will still display correctly*/
+.note-fret:before {
+  content: 'C'; /* Replace with data attribute later */
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  line-height: 33px;
+  text-align: center;
+  background: teal;
+  border: 3px solid #007575;
+  color: #eee;
+  z-index: 2;
+  opacity: 0.2;
+}
+
 /* REMOVED OLD STYLES */
 .single-fretmark:after {
     top: calc(var(--fretboard-height) / 2 * 1px); /*  50 percent of the height of the fretboard */ /* Multiply with 1 px to get unit */
