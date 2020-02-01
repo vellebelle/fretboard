@@ -1,9 +1,10 @@
 const fretboard = document.querySelector('.fretboard');
+const root = document.documentElement;
 // testing
 // WAIT WITH THESE VARIABLES UNTIL BEING USED. OTHERWISE CONFUSING..
 // Setup consts and variables
 const numberOfFrets = 24;
-const numberOfStrings = 6;
+const numberOfStrings = 7;
 
 
 //WAIT WITH TUNING
@@ -26,33 +27,32 @@ const app = {
         this.setupFretboard();
     },
     setupFretboard() {
+        // Set css var / number of strings
+        root.style.setProperty('--number-of-strings', numberOfStrings);
+
         // add strings to fretboard
         for (let i = 0; i < numberOfStrings; i++) {
 
-            let string = tools.createElement('div');
-            string.classList.add('string');
-            fretboard.appendChild(string);
+          let string = tools.createElement('div');
+          string.classList.add('string');
+          fretboard.appendChild(string);
 
-            // Loop inside loop to make frets inside each string
-            for (let fret = 0; fret <= numberOfFrets; fret++) { // >= operator because we have 1+ fret because of 0ith fret
+          for (let fret = 0; fret <= numberOfFrets; fret++) { 
                 
-                let noteFret = tools.createElement('div');
-                noteFret.classList.add('note-fret');
+            let noteFret = tools.createElement('div');
+            noteFret.classList.add('note-fret');
 
-                // Add single fretmarks to specific frets, but only on the first string (i === 0)
-                // AND Check to see if we are in a fret, where a single fretmark should be added
-                if (i === 0 && singleFretMarkPositions.indexOf(fret) !== -1) {
-                    noteFret.classList.add('single-fretmark');
-                }
+            if (i === 0 && singleFretMarkPositions.indexOf(fret) !== -1) {
+              noteFret.classList.add('fretmark', 'single-fretmark');
+            }
                 
-                string.appendChild(noteFret);
-                  // Add double fretmark
-                  // If first string and fret is in array of double fretmarks add div.double-fretmark
-                  if (i === 0 && doubleFretMarkPositions.indexOf(fret) !== -1) {
-                    let doubleFretMark = tools.createElement('div');
-                    doubleFretMark.classList.add('double-fretmark');
-                    noteFret.appendChild(doubleFretMark);
-                }
+            string.appendChild(noteFret);
+            // Add double fretmark
+              if (i === 0 && doubleFretMarkPositions.indexOf(fret) !== -1) {
+                let doubleFretMark = tools.createElement('div');
+                doubleFretMark.classList.add('fretmark', 'double-fretmark');
+                noteFret.appendChild(doubleFretMark);
+              }
             }
         }
     }

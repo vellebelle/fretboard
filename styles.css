@@ -29,6 +29,8 @@ body {
     flex-direction: column; /* Because we want the strings to flow from top to bottom */
     background: #be975b;
     width: 100%;
+    /* ADD MIN WIDTH // Around 1250 so first string does not fuck up with a max of 24 frets*/
+    min-width: 1250px;
     height: calc(var(--fretboard-height) * 1px); 
     margin-top: 50px; /* Just to push down a bit so we can see where it begins */
 }
@@ -48,8 +50,7 @@ body {
     box-shadow: 76px 3px 10px #806233; /* Off set 76 pixels because we dont want the shadow on fret 0 */
     z-index: 1;
     position: absolute; /* So we can push the string down a bit */
-    /* Extract this to css vars to make it simpler */
-    /* top: calc(calc(calc(var(--fretboard-height) / 6 / 2) - 5) * 1px);  */
+
     
     top: var(--string-top-position);
 }
@@ -89,38 +90,27 @@ display: flex;
     opacity: 0;
 }
 
-/* Single fret marks on 3, 5, 7 and 9th fret  */
+/* Extract class to share settings for fretmark */
+.fretmark:before, .fretmark:after {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--fret-mark-color);
+}
+/* REMOVED OLD STYLES */
 .single-fretmark:after {
-    content: "";
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
     top: calc(var(--fretboard-height) / 2 * 1px); /*  50 percent of the height of the fretboard */ /* Multiply with 1 px to get unit */
-    background: var(--fret-mark-color);
     transform: translate(0, -50%); /* Subtract half of the width of the fretmark to center */
 }
 
 .double-fretmark:before {
-    content: "";
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: var(--fret-mark-color);
-    /* Extract to make it simpler */
-    /* top: calc(calc(var(--fretboard-height) / 5) * 1px);  */
     top: calc(var(--double-fret-mark-pos-1));
     transform: translate(-140%, -50%);
     
 }
 .double-fretmark:after {
-    content: "";
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: var(--fret-mark-color);
     top: var(--double-fret-mark-pos-2);
     transform: translate(-140%, -50%);
 }
