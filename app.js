@@ -3,7 +3,7 @@ const root = document.documentElement;
 
 // Setup consts and variables
 const numberOfFrets = 24;
-const numberOfStrings = 7;
+const numberOfStrings = 6;
 // SET UP VARS FOR TUNING AND NOTE CREATION
 // const tuning = ['E', 'B', 'G', 'D', 'A', 'E']; // reverse order from top of screen
 
@@ -14,6 +14,7 @@ const doubleFretMarkPositions = [12, 24];
 const notesFlat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 const notesSharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
+const guitarTuning = [4, 11, 7, 2, 9, 4] // E B G D A E / from the bottom up
 
 // determines whether the note dots should use flats or sharps
 let accidentals = 'flats';
@@ -31,20 +32,27 @@ const app = {
 
     // add strings to fretboard
     for (let i = 0; i < numberOfStrings; i++) {
-
+      //console.log(i);
       let string = tools.createElement('div');
       string.classList.add('string');
       fretboard.appendChild(string);
-
+      console.log('string ', i);  
       for (let fret = 0; fret <= numberOfFrets; fret++) { 
                 
         let noteFret = tools.createElement('div');
         noteFret.classList.add('note-fret');
+        
+        // Takes the currrent string start index note and adds fret number to get the correct note
+        let noteName = this.generateNoteNames((fret + guitarTuning[i]), accidentals);
+        // Add data attribute to every note fret containing the correct name
+        noteFret.setAttribute('data-note', noteName);
 
+       console.log(noteName);
+        // Add single fretmarks
         if (i === 0 && singleFretMarkPositions.indexOf(fret) !== -1) {
           noteFret.classList.add('fretmark', 'single-fretmark');
         }
-                
+               
         string.appendChild(noteFret);
         // Add double fretmark
         if (i === 0 && doubleFretMarkPositions.indexOf(fret) !== -1) {
@@ -56,7 +64,7 @@ const app = {
     }
   },
   generateNoteNames(noteIndex, accidentals) {
-    // Explain this.. Maybe in console
+    // Explain this.. Maybe in console // Explain and app.generateNoteNames(4, 'sharps')
     noteIndex = noteIndex % 12;
     let noteName;
     if (accidentals === 'flats') {
