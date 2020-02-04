@@ -5,20 +5,21 @@ const root = document.documentElement;
 const numberOfFrets = 24;
 const numberOfStrings = 7;
 // SET UP VARS FOR TUNING AND NOTE CREATION
-const tuning = ['E', 'B', 'G', 'D', 'A', 'E']; // reverse order from top of screen
-
-// sharps the noteletter without the accidental. ie: C, C#, D, D#, E, F, F#, G, G#, A, A#, B
-const notesSharp = ["C", "C", "D", "D", "E", "F", "F", "G", "G", "A", "A", "B"];
-// Same concept for the flats
-const notesFlat = ["C", "D", "D", "E", "E", "F", "G", "G", "A", "A", "B", "B"];
-const accidentalPositions = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]; // array of positions for accidentals 1 is true, 0 is false
-
-// determines whether the note dots should use flats or sharps
-let accidentals = 'flats';
+// const tuning = ['E', 'B', 'G', 'D', 'A', 'E']; // reverse order from top of screen
 
 // Where the single fretmarks should be positioned on the fretboard
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
 const doubleFretMarkPositions = [12, 24];
+// Arrays with one octave of notenames / flats and sharps
+const notesFlat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+const notesSharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+
+// determines whether the note dots should use flats or sharps
+let accidentals = 'flats';
+
+
+
 
 const app = {
   init() {
@@ -53,6 +54,17 @@ const app = {
         }
       }
     }
+  },
+  generateNoteNames(noteIndex, accidentals) {
+    // Explain this.. Maybe in console
+    noteIndex = noteIndex % 12;
+    let noteName;
+    if (accidentals === 'flats') {
+      noteName = notesFlat[noteIndex];
+    } else if (accidentals === 'sharps') {
+      noteName = notesSharp[noteIndex];
+    }
+    return noteName;
   }
 }
 const tools = {
