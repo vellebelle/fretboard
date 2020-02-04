@@ -40,7 +40,7 @@ const app = {
       for (let fret = 0; fret <= numberOfFrets; fret++) { 
                 
         let noteFret = tools.createElement('div');
-        noteFret.classList.add('note-fret');
+        noteFret.classList.add('note-fret');Added 
         
         // Takes the currrent string start index note and adds fret number to get the correct note
         let noteName = this.generateNoteNames((fret + guitarTuning[i]), accidentals);

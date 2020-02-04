@@ -86,7 +86,7 @@ display: flex;
 
 /* Note dots to display note names ******* MOVED THIS UNDER fretmark>before and after styles, so the note dots will still display correctly*/
 .note-fret:before {
-  content: 'C'; /* Replace with data attribute later */
+  content: attr(data-note); /* Replace with data attribute later */
   width: 33px;
   height: 33px;
   border-radius: 50%;
@@ -96,7 +96,7 @@ display: flex;
   border: 3px solid #007575;
   color: #eee;
   z-index: 2;
-  opacity: 0.2;
+  opacity: 0.8;
 }
 
 /* REMOVED OLD STYLES */
