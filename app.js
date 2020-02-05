@@ -25,6 +25,7 @@ let accidentals = 'flats';
 const app = {
   init() {
     this.setupFretboard();
+    this.setupEventListeners();
   },
   setupFretboard() {
     // Set css var / number of strings
@@ -73,8 +74,27 @@ const app = {
       noteName = notesSharp[noteIndex];
     }
     return noteName;
+  },
+  setupEventListeners() {
+      fretboard.addEventListener('mouseover', (event) => {
+          if (event.target.classList.contains('note-fret')) {
+              // do something
+              console.log(event.target);
+              event.target.style.setProperty('--noteDotOpacity', 1);
+            // Show what happens if this is not done
+          } else {
+              return;
+          }
+
+          fretboard.addEventListener('mouseout', (event) => {
+            event.target.style.setProperty('--noteDotOpacity', 0);
+          });
+
+      });
   }
 }
+
+
 const tools = {
     createElement(element, content) {
         element = document.createElement(element);
