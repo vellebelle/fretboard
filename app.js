@@ -2,6 +2,8 @@ const fretboard = document.querySelector('.fretboard');
 const selectedInstrumentSelector = document.querySelector('#instrument-selector');
 const root = document.documentElement;
 
+const accidentalSelector = document.querySelector('.accidental-selector');
+
 // Setup consts and variables
 const numberOfFrets = 24;
 
@@ -12,17 +14,14 @@ const doubleFretMarkPositions = [12, 24];
 const notesFlat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 const notesSharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
-// SET UP OBJECT WITH INSTRUMENT TUNING PRESETS
 const instrumentTuningPresets = {
   'Guitar': [4, 11, 7, 2, 9, 4], // E B G D A E
   'Bass (4 strings)': [7, 2, 9, 4], // G D A E
   'Bass (5 strings)': [7, 2, 9, 4, 11], // G D A E B
   'Ukulele': [9, 4, 0, 7] // A E C G
 };
-// NEW VARIABLE TO CONTAIN THE CURRENTLY SELECTED INSTRUMENT PRESET
-let selectedInstrument = 'Guitar'; // Defaults is guitar 
 
-// CHANGE TO let because we want to be able to change it.. Also change to the length of the selected instrument preset
+let selectedInstrument = 'Guitar'; // Defaults is guitar 
 let numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
 
 // determines whether the note dots should use flats or sharps
@@ -55,7 +54,6 @@ const app = {
         let noteName = this.generateNoteNames((fret + instrumentTuningPresets[selectedInstrument][i]), accidentals); // CHANGED TO USE PINSTRUMENT TUNING PRESET OBJECT 
         // Add data attribute to every note fret containing the correct name
         noteFret.setAttribute('data-note', noteName);
-
 
         // Add single fretmarks
         if (i === 0 && singleFretMarkPositions.indexOf(fret) !== -1) {
@@ -105,15 +103,26 @@ const app = {
       });
     });
 
-    // SETUP EVENT LISTENER FOR INSTRUMENT SELECTOR
+    // Instrument selector
     selectedInstrumentSelector.addEventListener('change', (event) => {
       // Set currently selected instrument
       selectedInstrument = event.target.value;
-      // SET NUMBER OF STRING BASED ON LENGTH OF PRESET
+      // Set number of strings based on length of selected instrument
       numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
-      // SETUP THE FRETBOARD AGAIN
+      // Render the fretboard with the new settings
       this.setupFretboard();
     });
+
+    accidentalSelector.addEventListener('click', (event) => {
+      // ONLY IF THE CLICKED ELEMENT HAS A CLASS OF acc-select
+      if (event.target.classList.contains('acc-select')) {
+        accidentals = event.target.value;
+      this.setupFretboard();
+      } else {
+        return;
+      }
+    });
+
   }
 }
 

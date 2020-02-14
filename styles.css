@@ -26,10 +26,15 @@ body {
 }
 /* Add styling to settings */
 .settings {
+  display: flex;
   color: #fff;
   padding: 20px;
   border-bottom: 1px solid #444;
   background: #282828;
+}
+.accidental-selector {
+  /* Space out a bit */
+  margin: 0 20px;
 }
 
 .fretboard {

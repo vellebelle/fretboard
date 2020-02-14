@@ -10,10 +10,19 @@
 <body>
   <!-- Add new div with settings -->
     <div class="settings">
+      
       <label for="instrument-selector">Selected Instrument: </label>
       <select name="instrument-selector" id="instrument-selector">
 
       </select>
+      <div class="accidental-selector">
+        <label for="flats">Flats: </label>
+        <input type="radio" class="acc-select" id="flats" name="accidentals" value="flats" checked>
+        <label for="sharps">Sharps: </label>
+        <input type="radio" class="acc-select" id="sharps" name="accidentals" value="sharps">
+      </div>
+      
+      
     </div>  
 
     <div class="fretboard">
