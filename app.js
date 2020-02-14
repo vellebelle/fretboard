@@ -4,8 +4,8 @@ const root = document.documentElement;
 
 const accidentalSelector = document.querySelector('.accidental-selector');
 
-// Setup consts and variables
-const numberOfFrets = 24;
+// SET TO LET INSTEAD OF CONST
+let numberOfFrets = 20;
 
 // Where the single fretmarks should be positioned on the fretboard
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];

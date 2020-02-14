@@ -36,6 +36,14 @@ body {
   /* Space out a bit */
   margin: 0 20px;
 }
+/* TRICK TO ALWAYS DISPLAY NUMBER STEPPER ARROWS IN CHROME */
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {  
+    opacity: 1;
+}
+/* MAKE SOME SPACE BETWEEN THE LABELS AND INPUTS */
+label {
+  margin-right: 10px;
+}
 
 .fretboard {
     display: flex;
