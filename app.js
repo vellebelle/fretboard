@@ -1,9 +1,9 @@
 const fretboard = document.querySelector('.fretboard');
+const selectedInstrumentSelector = document.querySelector('#instrument-selector');
 const root = document.documentElement;
 
 // Setup consts and variables
 const numberOfFrets = 24;
-const numberOfStrings = 6;
 
 // Where the single fretmarks should be positioned on the fretboard
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
@@ -20,9 +20,10 @@ const instrumentTuningPresets = {
   'Ukulele': [9, 4, 0, 7] // A E C G
 };
 // NEW VARIABLE TO CONTAIN THE CURRENTLY SELECTED INSTRUMENT PRESET
-
 let selectedInstrument = 'Guitar'; // Defaults is guitar 
-// const guitarTuning = [4, 11, 7, 2, 9, 4] // E B G D A E / from the bottom up
+
+// CHANGE TO let because we want to be able to change it.. Also change to the length of the selected instrument preset
+let numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
 
 // determines whether the note dots should use flats or sharps
 let accidentals = 'flats';
@@ -30,19 +31,21 @@ let accidentals = 'flats';
 const app = {
   init() {
     this.setupFretboard();
+    this.setupSelectedInstrumentSelector();
     this.setupEventListeners();
   },
   setupFretboard() {
+    // CLEAR EVERYTHING IN FRETBOARD DIV
+    fretboard.innerHTML = '';
     // Set css var / number of strings
     root.style.setProperty('--number-of-strings', numberOfStrings);
 
     // add strings to fretboard
     for (let i = 0; i < numberOfStrings; i++) {
-      //console.log(i);
+  
       let string = tools.createElement('div');
       string.classList.add('string');
       fretboard.appendChild(string);
-      console.log('string ', i);  
       for (let fret = 0; fret <= numberOfFrets; fret++) { 
                 
         let noteFret = tools.createElement('div');
@@ -53,7 +56,7 @@ const app = {
         // Add data attribute to every note fret containing the correct name
         noteFret.setAttribute('data-note', noteName);
 
-       console.log(noteName);
+
         // Add single fretmarks
         if (i === 0 && singleFretMarkPositions.indexOf(fret) !== -1) {
           noteFret.classList.add('fretmark', 'single-fretmark');
@@ -80,22 +83,37 @@ const app = {
     }
     return noteName;
   },
+  // NEW METHOD TO SETUP SELECTOR
+  setupSelectedInstrumentSelector() {
+    // LOOP OVER INSTRUMENTS IN OBJECT
+    for (instrument in instrumentTuningPresets) {
+      // CREATE OPTION ELEMENT
+      let instrumentOption = tools.createElement('option', instrument);
+      selectedInstrumentSelector.appendChild(instrumentOption);
+    }  
+  },
   setupEventListeners() {
-      fretboard.addEventListener('mouseover', (event) => {
-          if (event.target.classList.contains('note-fret')) {
-              // do something
-              console.log(event.target);
-              event.target.style.setProperty('--noteDotOpacity', 1);
-            // Show what happens if this is not done
-          } else {
-              return;
-          }
-
-          fretboard.addEventListener('mouseout', (event) => {
-            event.target.style.setProperty('--noteDotOpacity', 0);
-          });
-
+    fretboard.addEventListener('mouseover', (event) => {
+      if (event.target.classList.contains('note-fret')) {
+        event.target.style.setProperty('--noteDotOpacity', 1);
+        // Show what happens if this is not done
+      } else {
+          return;
+        }
+      fretboard.addEventListener('mouseout', (event) => {
+        event.target.style.setProperty('--noteDotOpacity', 0);
       });
+    });
+
+    // SETUP EVENT LISTENER FOR INSTRUMENT SELECTOR
+    selectedInstrumentSelector.addEventListener('change', (event) => {
+      // Set currently selected instrument
+      selectedInstrument = event.target.value;
+      // SET NUMBER OF STRING BASED ON LENGTH OF PRESET
+      numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
+      // SETUP THE FRETBOARD AGAIN
+      this.setupFretboard();
+    });
   }
 }
 
