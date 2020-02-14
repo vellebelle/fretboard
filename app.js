@@ -1,8 +1,9 @@
+const root = document.documentElement;
 const fretboard = document.querySelector('.fretboard');
 const selectedInstrumentSelector = document.querySelector('#instrument-selector');
-const root = document.documentElement;
-
 const accidentalSelector = document.querySelector('.accidental-selector');
+// ADDED
+const numberOfFretsSelector = document.querySelector('#number-of-frets');
 
 // SET TO LET INSTEAD OF CONST
 let numberOfFrets = 20;
@@ -117,10 +118,15 @@ const app = {
       // ONLY IF THE CLICKED ELEMENT HAS A CLASS OF acc-select
       if (event.target.classList.contains('acc-select')) {
         accidentals = event.target.value;
-      this.setupFretboard();
+        this.setupFretboard();
       } else {
         return;
       }
+    });
+
+    numberOfFretsSelector.addEventListener('change', () => {
+      numberOfFrets = numberOfFretsSelector.value;
+      this.setupFretboard();
     });
 
   }
