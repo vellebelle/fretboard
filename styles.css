@@ -9,6 +9,7 @@
     --string-top-position: calc(((var(--fretboard-height) / var(--number-of-strings) / 2) - var(--half-string-height)) * 1px);
     --double-fret-mark-pos-1: calc(var(--fretboard-height) * 0.25px);
     --double-fret-mark-pos-2: calc(var(--fretboard-height) * 0.75px);
+    /* THIS IS WHERE WE CAN CONTROL OF ALL NOTE DOTS SHOULD BE SHOWN */
     --noteDotOpacity: 0;
 }
 
@@ -42,7 +43,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 /* MAKE SOME SPACE BETWEEN THE LABELS AND INPUTS */
 label {
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 .fretboard {
