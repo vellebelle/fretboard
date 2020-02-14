@@ -4,8 +4,6 @@ const root = document.documentElement;
 // Setup consts and variables
 const numberOfFrets = 24;
 const numberOfStrings = 6;
-// SET UP VARS FOR TUNING AND NOTE CREATION
-// const tuning = ['E', 'B', 'G', 'D', 'A', 'E']; // reverse order from top of screen
 
 // Where the single fretmarks should be positioned on the fretboard
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
@@ -14,13 +12,20 @@ const doubleFretMarkPositions = [12, 24];
 const notesFlat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 const notesSharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
-const guitarTuning = [4, 11, 7, 2, 9, 4] // E B G D A E / from the bottom up
+// SET UP OBJECT WITH INSTRUMENT TUNING PRESETS
+const instrumentTuningPresets = {
+  'Guitar': [4, 11, 7, 2, 9, 4], // E B G D A E
+  'Bass (4 strings)': [7, 2, 9, 4], // G D A E
+  'Bass (5 strings)': [7, 2, 9, 4, 11], // G D A E B
+  'Ukulele': [9, 4, 0, 7] // A E C G
+};
+// NEW VARIABLE TO CONTAIN THE CURRENTLY SELECTED INSTRUMENT PRESET
+
+let selectedInstrument = 'Guitar'; // Defaults is guitar 
+// const guitarTuning = [4, 11, 7, 2, 9, 4] // E B G D A E / from the bottom up
 
 // determines whether the note dots should use flats or sharps
 let accidentals = 'flats';
-
-
-
 
 const app = {
   init() {
@@ -44,7 +49,7 @@ const app = {
         noteFret.classList.add('note-fret');
         
         // Takes the currrent string start index note and adds fret number to get the correct note
-        let noteName = this.generateNoteNames((fret + guitarTuning[i]), accidentals);
+        let noteName = this.generateNoteNames((fret + instrumentTuningPresets[selectedInstrument][i]), accidentals); // CHANGED TO USE PINSTRUMENT TUNING PRESET OBJECT 
         // Add data attribute to every note fret containing the correct name
         noteFret.setAttribute('data-note', noteName);
 
