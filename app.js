@@ -140,9 +140,12 @@ const app = {
         // REMOVE EVENTLISTENER FROM FRETBOARD
         fretboard.removeEventListener('mouseover', this.showNoteDot);
         fretboard.removeEventListener('mouseout', this.hideNoteDot);
+        // SETUP THE FRETBOARD
         this.setupFretboard();
       } else {
+        // SET OPACITY ON DOTS TO 0 AGAIN
         root.style.setProperty('--noteDotOpacity', 0);
+        // RE ADD THE EVENTLISTENERS AND SETUP THE FRETBOARD AGAIN
         fretboard.addEventListener('mouseover', this.showNoteDot);
         fretboard.addEventListener('mouseout', this.hideNoteDot);
         this.setupFretboard();
@@ -151,7 +154,6 @@ const app = {
 
   }
 }
-
 
 const tools = {
     createElement(element, content) {
