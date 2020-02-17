@@ -191,6 +191,10 @@ const app = {
       // TOGGLE WITH NEGATOR / negation operator
       showMultipleNotes = !showMultipleNotes;
     });
+   
+   
+   
+   // SHOULD REMOVE THESE EVENT LISTENERS WHEN SHOW ALL NOTES IS SELECTED
     // NEW EVENT LISTENERS
     noteNameSection.addEventListener('mouseover', (event) => {
       let noteToShow = event.target.innerText;
@@ -198,9 +202,18 @@ const app = {
     });
     // NEW EVENT LISTENERS
     noteNameSection.addEventListener('mouseout', (event) => {
-      let noteToShow = event.target.innerText;
-      app.toggleMultipleNotes(noteToShow, 0);
+      // ADD CHECK LATER TO SEE IF ALL NOTES ARE SELECTED.. SHOW WHATS WRONG FIRST
+      if (!showAllNotesSelector.checked) {
+        let noteToShow = event.target.innerText;
+        app.toggleMultipleNotes(noteToShow, 0);
+      } else {
+        return;
+      }
+      
     });
+
+
+
   },
   // THE NAME OF THE NOTE TO SHOW AND 1 or 0 - the opacity
   toggleMultipleNotes(noteName, opacity) {
