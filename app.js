@@ -4,13 +4,14 @@ const selectedInstrumentSelector = document.querySelector('#instrument-selector'
 const accidentalSelector = document.querySelector('.accidental-selector');
 const numberOfFretsSelector = document.querySelector('#number-of-frets');
 const showAllNotesSelector = document.querySelector('#show-all-notes');
+const showMultipleNotesSelector = document.querySelector('#show-multiple-notes');
 
 let numberOfFrets = 20;
 
 // OBSOLETE
 // let showAllNotes = false;
 // NEW ADDED
-let showMultipleNotes = true;
+let showMultipleNotes = false;
 
 // Where the single fretmarks should be positioned on the fretboard
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
@@ -162,6 +163,10 @@ const app = {
         fretboard.addEventListener('mouseout', this.hideNoteDot);
         this.setupFretboard();
       }
+    });
+    showMultipleNotesSelector.addEventListener('change', () => {
+      // TOGGLE WITH NEGATOR / negation operator
+      showMultipleNotes = !showMultipleNotes;
     });
   },
   // THE NAME OF THE NOTE TO SHOW AND 1 or 0 - the opacity
