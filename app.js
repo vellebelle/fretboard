@@ -8,6 +8,9 @@ const showMultipleNotesSelector = document.querySelector('#show-multiple-notes')
 // NEW NEW NEW ADDED!
 const noteNameSection = document.querySelector('.note-name-section');
 
+// SET HERE SO WE DONT HAVE TO DO IT EVERY TIME WE HOVER OVER FRETBOARD
+let allNotes;
+
 let numberOfFrets = 20;
 
 // OBSOLETE
@@ -78,6 +81,7 @@ const app = {
         }
       }
     }
+    allNotes = document.querySelectorAll('.note-fret');
   },
   generateNoteNames(noteIndex, accidentals) {
     // Explain this.. Maybe in console // Explain and app.generateNoteNames(4, 'sharps')
@@ -187,11 +191,21 @@ const app = {
       // TOGGLE WITH NEGATOR / negation operator
       showMultipleNotes = !showMultipleNotes;
     });
+    // NEW EVENT LISTENERS
+    noteNameSection.addEventListener('mouseover', (event) => {
+      let noteToShow = event.target.innerText;
+      app.toggleMultipleNotes(noteToShow, 1);
+    });
+    // NEW EVENT LISTENERS
+    noteNameSection.addEventListener('mouseout', (event) => {
+      let noteToShow = event.target.innerText;
+      app.toggleMultipleNotes(noteToShow, 0);
+    });
   },
   // THE NAME OF THE NOTE TO SHOW AND 1 or 0 - the opacity
   toggleMultipleNotes(noteName, opacity) {
     // GET ALL NOTES IN A NODELIST
-    let allNotes = document.querySelectorAll('.note-fret');
+    // let allNotes = document.querySelectorAll('.note-fret');
     console.log(allNotes);
     for (let i = 0; i < allNotes.length; i++) {
       console.log(allNotes[i]);
