@@ -3,7 +3,6 @@ const fretboard = document.querySelector('.fretboard');
 const selectedInstrumentSelector = document.querySelector('#instrument-selector');
 const accidentalSelector = document.querySelector('.accidental-selector');
 const numberOfFretsSelector = document.querySelector('#number-of-frets');
-// ADDED
 const showAllNotesSelector = document.querySelector('#show-all-notes');
 
 let numberOfFrets = 20;
@@ -151,7 +150,19 @@ const app = {
         this.setupFretboard();
       }
     });
-
+  },
+  // THE NAME OF THE NOTE TO SHOW AND 1 or 0 - the opacity
+  toggleMultipleNotes(noteName, opacity) {
+    // GET ALL NOTES IN A NODELIST
+    let allNotes = document.querySelectorAll('.note-fret');
+    console.log(allNotes);
+    for (let i = 0; i < allNotes.length; i++) {
+      console.log(allNotes[i]);
+      // NOTE NAME IS EQUAL TO THE ONE WERE PASSING IN, SET ITS OPACITY TO 1 or 0 (whatever is passed in as the second argument)
+      if (allNotes[i].dataset.note === noteName) {
+        allNotes[i].style.setProperty('--noteDotOpacity', opacity);
+      }
+    }
   }
 }
 
