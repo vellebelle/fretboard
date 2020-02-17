@@ -6,6 +6,9 @@ const numberOfFretsSelector = document.querySelector('#number-of-frets');
 const showAllNotesSelector = document.querySelector('#show-all-notes');
 const showMultipleNotesSelector = document.querySelector('#show-multiple-notes');
 
+// SET HERE SO WE DONT HAVE TO DO IT EVERY TIME WE HOVER OVER FRETBOARD
+let allNotes;
+
 let numberOfFrets = 20;
 
 // OBSOLETE
@@ -75,6 +78,8 @@ const app = {
         }
       }
     }
+    // GET A COLLECTION OF ALL NOTES FOR USE IN SHOW MULTIPLE NOTES
+    allNotes = document.querySelectorAll('.note-fret');
   },
   generateNoteNames(noteIndex, accidentals) {
     // Explain this.. Maybe in console // Explain and app.generateNoteNames(4, 'sharps')
@@ -171,8 +176,8 @@ const app = {
   },
   // THE NAME OF THE NOTE TO SHOW AND 1 or 0 - the opacity
   toggleMultipleNotes(noteName, opacity) {
-    // GET ALL NOTES IN A NODELIST
-    let allNotes = document.querySelectorAll('.note-fret');
+    // GET ALL NOTES IN A NODELIST ////// MOVED TO SETUO FRETBOARD
+    
     console.log(allNotes);
     for (let i = 0; i < allNotes.length; i++) {
       console.log(allNotes[i]);
