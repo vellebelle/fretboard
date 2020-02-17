@@ -6,8 +6,11 @@ const numberOfFretsSelector = document.querySelector('#number-of-frets');
 const showAllNotesSelector = document.querySelector('#show-all-notes');
 
 let numberOfFrets = 20;
-// NEW VAR TO CONTAIN WHETHER OR NOT TO SHOW ALL NOTES
-let showAllNotes = false;
+
+// OBSOLETE
+// let showAllNotes = false;
+// NEW ADDED
+let showMultipleNotes = true;
 
 // Where the single fretmarks should be positioned on the fretboard
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
@@ -93,13 +96,23 @@ const app = {
   },
   showNoteDot(event) {
     if (event.target.classList.contains('note-fret')) {
-      event.target.style.setProperty('--noteDotOpacity', 1);
+      if (showMultipleNotes) {
+        // CANNOT USE THIS BECAUSE OF EVENT / ITS A CALLBACK FUNCTION
+        app.toggleMultipleNotes(event.target.dataset.note, 1);
+      } else {
+        event.target.style.setProperty('--noteDotOpacity', 1);
+      }
+      
     } else {
         return;
     }
   },
   hideNoteDot(event) {
-    event.target.style.setProperty('--noteDotOpacity', 0);
+    if (showMultipleNotes) {
+      app.toggleMultipleNotes(event.target.dataset.note, 0);
+    } else {
+      event.target.style.setProperty('--noteDotOpacity', 0);
+    }
   },
   setupEventListeners() {
     fretboard.addEventListener('mouseover', this.showNoteDot);
