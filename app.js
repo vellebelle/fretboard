@@ -5,6 +5,8 @@ const accidentalSelector = document.querySelector('.accidental-selector');
 const numberOfFretsSelector = document.querySelector('#number-of-frets');
 const showAllNotesSelector = document.querySelector('#show-all-notes');
 const showMultipleNotesSelector = document.querySelector('#show-multiple-notes');
+// NEW NEW NEW ADDED!
+const noteNameSection = document.querySelector('.note-name-section');
 
 let numberOfFrets = 20;
 
@@ -37,6 +39,7 @@ const app = {
   init() {
     this.setupFretboard();
     this.setupSelectedInstrumentSelector();
+    this.setupNoteNameSection()
     this.setupEventListeners();
   },
   setupFretboard() {
@@ -95,6 +98,20 @@ const app = {
       selectedInstrumentSelector.appendChild(instrumentOption);
     }  
   },
+  setupNoteNameSection() {
+    // CLEAR ALL IN DIV
+    noteNameSection.innerHTML = '';
+    let noteNames;
+    if (accidentals === 'flats') {
+      noteNames = notesFlat;
+    } else {
+      noteNames = notesSharp;
+    }
+    noteNames.forEach((noteName) => {
+      let noteNameElement = tools.createElement('span', noteName);
+      noteNameSection.appendChild(noteNameElement);
+    });
+  },
   showNoteDot(event) {
     if (event.target.classList.contains('note-fret')) {
       if (showMultipleNotes) {
@@ -133,6 +150,8 @@ const app = {
       if (event.target.classList.contains('acc-select')) {
         accidentals = event.target.value;
         this.setupFretboard();
+        // UPDATE THE NOTE NAMES SECTION
+        this.setupNoteNameSection();
       } else {
         return;
       }
