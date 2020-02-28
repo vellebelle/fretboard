@@ -1,20 +1,13 @@
-const root = document.documentElement;
+(function() {
+  const root = document.documentElement;
 const fretboard = document.querySelector('.fretboard');
 const instrumentSelector = document.querySelector('#instrument-selector');
 const accidentalSelector = document.querySelector('.accidental-selector');
 const numberOfFretsSelector = document.querySelector('#number-of-frets');
 const showAllNotesSelector = document.querySelector('#show-all-notes');
 const showMultipleNotesSelector = document.querySelector('#show-multiple-notes');
-// NEW NEW NEW ADDED!
 const noteNameSection = document.querySelector('.note-name-section');
 
-// SET HERE SO WE DONT HAVE TO DO IT EVERY TIME WE HOVER OVER FRETBOARD
-let allNotes;
-let numberOfFrets = 20;
-let showAllNotes = false;
-let showMultipleNotes = false;
-
-// Where the single fretmarks should be positioned on the fretboard
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
 const doubleFretMarkPositions = [12, 24];
 // Arrays with one octave of notenames / flats and sharps
@@ -28,11 +21,13 @@ const instrumentTuningPresets = {
   'Ukulele': [9, 4, 0, 7] // A E C G
 };
 
-let selectedInstrument = 'Guitar'; // Defaults is guitar 
-let numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
-
-// determines whether the note dots should use flats or sharps
+let allNotes;
+let numberOfFrets = 20;
+let showAllNotes = false;
+let showMultipleNotes = false;
 let accidentals = 'flats';
+let selectedInstrument = 'Guitar'; 
+let numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
 
 const app = {
   init() {
@@ -46,10 +41,8 @@ const app = {
     fretboard.innerHTML = '';
     // Set css var / number of strings
     root.style.setProperty('--number-of-strings', numberOfStrings);
-
     // add strings to fretboard
     for (let i = 0; i < numberOfStrings; i++) {
-  
       let string = tools.createElement('div');
       string.classList.add('string');
       fretboard.appendChild(string);
@@ -114,7 +107,6 @@ const app = {
   },
   toggleMultipleNotes(noteName, opacity) {
     for (let i = 0; i < allNotes.length; i++) {
-      console.log(allNotes[i]);
       // NOTE NAME IS EQUAL TO THE ONE WERE PASSING IN, SET ITS OPACITY TO 1 or 0 (whatever is passed in as the second argument)
       if (allNotes[i].dataset.note === noteName) {
         allNotes[i].style.setProperty('--noteDotOpacity', opacity);
@@ -122,7 +114,6 @@ const app = {
     }
   }
 }
-
 
 const handlers = {
   setupEventListeners() {
@@ -221,3 +212,6 @@ const tools = {
     }
 }
 app.init();
+})();
+
+
