@@ -113,17 +113,23 @@ const app = {
     });
   },
   showNoteDot(event) {
+    // Check to see if show all notes selector is on
+    if (showAllNotes) {
+      return;
+    }
     if (event.target.classList.contains('note-fret')) {
       if (showMultipleNotes) {
         app.toggleMultipleNotes(event.target.dataset.note, 1);
       } else {
         event.target.style.setProperty('--noteDotOpacity', 1);
       }
-    } else {
-        return;
-    }
+    } 
   },
   hideNoteDot(event) {
+    // Check to see if show all notes selector is on
+    if (showAllNotes) {
+      return;
+    }
     if (showMultipleNotes) {
       app.toggleMultipleNotes(event.target.dataset.note, 0);
     } else {
@@ -152,21 +158,13 @@ const app = {
       app.setupFretboard();
   },
   setShowAllNotes() {
+    // REMOVED remove event listener lines..
     showAllNotes = showAllNotesSelector.checked;
       if (showAllNotes) {
-        // MAKE THE GLOBAL OPACITY VISIBLE WITH 1
         root.style.setProperty('--noteDotOpacity', 1);
-        // REMOVE EVENTLISTENER FROM FRETBOARD
-        fretboard.removeEventListener('mouseover', this.showNoteDot);
-        fretboard.removeEventListener('mouseout', this.hideNoteDot);
-        // SETUP THE FRETBOARD
         app.setupFretboard();
       } else {
-        // SET OPACITY ON DOTS TO 0 AGAIN
         root.style.setProperty('--noteDotOpacity', 0);
-        // RE ADD THE EVENTLISTENERS AND SETUP THE FRETBOARD AGAIN
-        fretboard.addEventListener('mouseover', this.showNoteDot);
-        fretboard.addEventListener('mouseout', this.hideNoteDot);
         app.setupFretboard();
       }
   },
@@ -207,7 +205,10 @@ const app = {
   }
 }
 
+const handlers = {
+  
 
+}
 
 const tools = {
     createElement(element, content) {
