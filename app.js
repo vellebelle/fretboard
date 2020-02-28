@@ -39,7 +39,7 @@ const app = {
     this.setupFretboard();
     this.setupinstrumentSelector();
     this.setupNoteNameSection();
-    this.setupEventListeners();
+    handlers.setupEventListeners();
   },
   setupFretboard() {
     // Clear everything in fretboard div
@@ -112,6 +112,30 @@ const app = {
       noteNameSection.appendChild(noteNameElement);
     });
   },
+  toggleMultipleNotes(noteName, opacity) {
+    for (let i = 0; i < allNotes.length; i++) {
+      console.log(allNotes[i]);
+      // NOTE NAME IS EQUAL TO THE ONE WERE PASSING IN, SET ITS OPACITY TO 1 or 0 (whatever is passed in as the second argument)
+      if (allNotes[i].dataset.note === noteName) {
+        allNotes[i].style.setProperty('--noteDotOpacity', opacity);
+      }
+    }
+  }
+}
+
+
+const handlers = {
+  setupEventListeners() {
+    fretboard.addEventListener('mouseover', this.showNoteDot);
+    fretboard.addEventListener('mouseout', this.hideNoteDot);
+    instrumentSelector.addEventListener('change', this.setSelectedInstrument);
+    accidentalSelector.addEventListener('click', this.setAccidentals);
+    numberOfFretsSelector.addEventListener('change', this.setNumberOfFrets);
+    showAllNotesSelector.addEventListener('change', this.setShowAllNotes);
+    showMultipleNotesSelector.addEventListener('change', this.setShowMultipleNotes);
+    noteNameSection.addEventListener('mouseover', this.setNotesToShow);
+    noteNameSection.addEventListener('mouseout', this.setNotesToHide);
+  },
   showNoteDot(event) {
     // Check to see if show all notes selector is on
     if (showAllNotes) {
@@ -182,31 +206,7 @@ const app = {
     } else {
       return;
     }
-  },
-  setupEventListeners() {
-    fretboard.addEventListener('mouseover', this.showNoteDot);
-    fretboard.addEventListener('mouseout', this.hideNoteDot);
-    instrumentSelector.addEventListener('change', this.setSelectedInstrument);
-    accidentalSelector.addEventListener('click', this.setAccidentals);
-    numberOfFretsSelector.addEventListener('change', this.setNumberOfFrets);
-    showAllNotesSelector.addEventListener('change', this.setShowAllNotes);
-    showMultipleNotesSelector.addEventListener('change', this.setShowMultipleNotes);
-    noteNameSection.addEventListener('mouseover', this.setNotesToShow);
-    noteNameSection.addEventListener('mouseout', this.setNotesToHide);
-  },
-  toggleMultipleNotes(noteName, opacity) {
-    for (let i = 0; i < allNotes.length; i++) {
-      console.log(allNotes[i]);
-      // NOTE NAME IS EQUAL TO THE ONE WERE PASSING IN, SET ITS OPACITY TO 1 or 0 (whatever is passed in as the second argument)
-      if (allNotes[i].dataset.note === noteName) {
-        allNotes[i].style.setProperty('--noteDotOpacity', opacity);
-      }
-    }
   }
-}
-
-const handlers = {
-  
 
 }
 
